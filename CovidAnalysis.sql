@@ -1,8 +1,6 @@
 CREATE DATABASE db1;
 
-
 USE db1;
-
 
 #Creating CovidDeath Table
 CREATE TABLE c_death
@@ -35,10 +33,8 @@ CREATE TABLE c_death
 	weekly_hosp_admissions_per_million DOUBLE
 );
 
-
 ALTER TABLE c_death
 MODIFY COLUMN new_cases_smoothed DECIMAL;
-
 
 #Importing CovidDeath table
 LOAD DATA INFILE "D:/Users/pshab/Downloads/SQL/CovidDeaths.csv"
@@ -50,9 +46,7 @@ LINES TERMINATED BY '\n'
 TERMINATED BY '\r'
 IGNORE 1 ROWS;
 
-
 SELECT * FROM c_death;
-
 
 #Creating CovidVaccine table
 CREATE TABLE c_vaccine
@@ -96,7 +90,6 @@ CREATE TABLE c_vaccine
     human_development_index DOUBLE
 );
 
-
 #Importing CovidVaccine Table
 LOAD DATA INFILE "D:/Users/pshab/Downloads/SQL/CovidVaccinations.csv"
 IGNORE INTO TABLE C_VACCINE 
@@ -118,8 +111,6 @@ ORDER BY 3,4;
 
 
 #FINDING DEATH PERCENTAGE
-
-
 SELECT location, continent, date, total_cases, total_deaths, (total_deaths/total_cases)*100 AS DeathPercent
 FROM c_death
 WHERE location != 'World'
@@ -128,7 +119,6 @@ ORDER BY 1,2;
 
 
 #FINDING HIGHEST INFECTED LOCATIONS
-
 SELECT location, MAX(total_deaths) AS HighestInfected, MAX((total_cases/population)*100) AS InfectedPercent
 FROM c_death
 WHERE continent IS NOT NULL
